@@ -38,8 +38,9 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">List Kompetisi</th>
-            <th scope="col">Nama Kompetisi</th>
-            <th scope="col">Lambang</th>
+            <th scope="col">Current Season Winner</th>
+            <th scope="col">Start Season Year</th>
+            <th scope="col">End Season Year</th>
           </tr>
         </thead>
         <tbody id="list-negara"></tbody>
@@ -62,9 +63,13 @@
           let listHtml = "";
           let listCompetitionByCountry = [];
           dataCompetition.forEach((data, i) => {
-            const startDate = data.currentSeason
-              ? data.currentSeason.startDate
+            let startDate = data.currentSeason
+              ? data.currentSeason.startDate.split("-")[0]
               : "";
+            let endDate = data.currentSeason
+              ? data.currentSeason.endDate.split("-")[0]
+              : "";
+
             let country = listCompetitionByCountry.find(
               (item) => item.id === data.area.id
             );
@@ -75,6 +80,8 @@
                 id: data.area.id,
                 name: data.area.name,
                 logoCountry: data.area.ensignUrl,
+                yearStart: startDate,
+                yearEnd: endDate,
                 listCompetition: [data],
               });
             }
@@ -92,21 +99,33 @@
             console.log(country);
             let negara = `<tr>
                                     <th scope="row">${i + 1}</th>
-                                    
-                                    <td><img src="${
-                                      country.logoCountry
-                                    }" alt="Not Found" onerror="this.src='https://i.pinimg.com/550x/8d/01/cd/8d01cd0345cc24e4e6c113849479ef23.jpg';" style="height:30px;width:50px">${
+                                    <td data-toggle="collapse" role="button" href="#collapse${
+                                      i + 1
+                                    }" aria-expanded="false" aria-controls="collapse${
+              i + 1
+            }" style="font-size:20px"><img  src="${
+              country.logoCountry
+            }" alt="Not Found" onerror="this.src='https://i.pinimg.com/550x/8d/01/cd/8d01cd0345cc24e4e6c113849479ef23.jpg';" style="height:25px;width:50px">  ${
               country.name
             }
-                                    <ul>`;
+            
+                                    <ul class="collapse" id="collapse${
+                                      i + 1
+                                    }">`;
 
             country.listCompetition.forEach((competition) => {
               console.log(competition);
-              negara += `<li><img src="${competition.emblemUrl}" alt="Not Found" onerror="this.src='https://i.pinimg.com/550x/8d/01/cd/8d01cd0345cc24e4e6c113849479ef23.jpg';" style="height:30px;width:50px">${country.name} ${competition.name}</li>`;
+              negara += `<li><img src="${competition.emblemUrl}" alt="Not Found" onerror="this.src='https://i.pinimg.com/550x/8d/01/cd/8d01cd0345cc24e4e6c113849479ef23.jpg';" style="height:30px;width:50px">${country.name} ${competition.name}</div></li>
+              `;
             });
-            negara += `</tr>
-            </td>
-              </ul>`;
+            negara += `
+            <td>${country.yearStart}</td>
+            <td>${country.yearEnd}</td>
+            </ul></tr>
+          
+            
+          
+            </td>`;
 
             listHtml += negara;
           });
