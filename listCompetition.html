@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Belajar API</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+      integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"
+      integrity="sha512-u9akINsQsAkG9xjc1cnGF4zw5TFDwkxuc9vUp5dltDWYCSmyd0meygbvgXrlc/z7/o4a19Fb5V0OUE58J7dcyw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">List Kompetisi</th>
+            <th scope="col">Nama Kompetisi</th>
+            <th scope="col">Lambang</th>
+          </tr>
+        </thead>
+        <tbody id="list-negara"></tbody>
+      </table>
+    </div>
+    <!-- Modal -->
+
+    <script>
+      const API = "https://api.football-data.org/v2/competitions";
+      const getClass = async () => {
+        try {
+          const request = await axios.get(API, {
+            headers: {
+              "X-Auth-Token": "5e1a1e516ee9473d8c8d242be4ece9bf",
+            },
+          });
+          console.log(request);
+          const dataCompetition = request.data.competitions;
+          console.log(dataCompetition);
+          let listHtml = "";
+          let listCompetitionByCountry = [];
+          dataCompetition.forEach((data, i) => {
+            const startDate = data.currentSeason
+              ? data.currentSeason.startDate
+              : "";
+            let country = listCompetitionByCountry.find(
+              (item) => item.id === data.area.id
+            );
+            if (country) {
+              country.listCompetition.push(data);
+            } else {
+              listCompetitionByCountry.push({
+                id: data.area.id,
+                name: data.area.name,
+                logoCountry: data.area.ensignUrl,
+                listCompetition: [data],
+              });
+            }
+            console.log(listCompetitionByCountry);
+          });
+          // const tidur = data.currentSeason.currentMatchday;
+          // console.log(tidur);
+          // console.log(data.currentSeason.startDate);
+          console.log(dataCompetition);
+
+          // console.log(data.area.name);
+          // console.log(data.currentSeason.startDate);
+
+          listCompetitionByCountry.forEach((country, i) => {
+            console.log(country);
+            let negara = `<tr>
+                                    <th scope="row">${i + 1}</th>
+                                    
+                                    <td><img src="${
+                                      country.logoCountry
+                                    }" alt="Not Found" onerror="this.src='https://i.pinimg.com/550x/8d/01/cd/8d01cd0345cc24e4e6c113849479ef23.jpg';" style="height:30px;width:50px">${
+              country.name
+            }
+                                    <ul>`;
+
+            country.listCompetition.forEach((competition) => {
+              console.log(competition);
+              negara += `<li><img src="${competition.emblemUrl}" alt="Not Found" onerror="this.src='https://i.pinimg.com/550x/8d/01/cd/8d01cd0345cc24e4e6c113849479ef23.jpg';" style="height:30px;width:50px">${country.name} ${competition.name}</li>`;
+            });
+            negara += `</tr>
+            </td>
+              </ul>`;
+
+            listHtml += negara;
+          });
+
+          $("#list-negara").html(listHtml);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      getClass();
+      // running every 5 second
+      // setInterval(function () {
+      //     getClass()
+      // }, 5000);
+    </script>
+  </body>
+</html>
