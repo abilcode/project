@@ -11,6 +11,7 @@
       integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="app.css" />
 
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
@@ -38,7 +39,6 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">List Kompetisi</th>
-            <th scope="col">Current Season Winner</th>
             <th scope="col">Start Season Year</th>
             <th scope="col">End Season Year</th>
           </tr>
@@ -50,7 +50,7 @@
 
     <script>
       const API = "https://api.football-data.org/v2/competitions";
-      const getClass = async () => {
+      const getCompetition = async () => {
         try {
           const request = await axios.get(API, {
             headers: {
@@ -115,7 +115,7 @@
 
             country.listCompetition.forEach((competition) => {
               console.log(competition);
-              negara += `<li><img src="${competition.emblemUrl}" alt="Not Found" onerror="this.src='https://i.pinimg.com/550x/8d/01/cd/8d01cd0345cc24e4e6c113849479ef23.jpg';" style="height:30px;width:50px">${country.name} ${competition.name}</div></li>
+              negara += `<li><a href="./team.html?team=${competition.id}"><img src="${competition.emblemUrl}" alt="Not Found" onerror="this.src='https://i.pinimg.com/550x/8d/01/cd/8d01cd0345cc24e4e6c113849479ef23.jpg';" style="height:30px;width:50px;">${country.name} ${competition.name}</a></li>
               `;
             });
             negara += `
@@ -136,7 +136,7 @@
         }
       };
 
-      getClass();
+      getCompetition();
       // running every 5 second
       // setInterval(function () {
       //     getClass()
