@@ -1,51 +1,6 @@
-#stylenav {
-    background-color: black;
-    border-radius: 10px;
-}
-
-#navbar-brand {
+#tablestyle {
+    background-color: rgba(46, 44, 44, 0.596);
     color: chartreuse;
-}
-
-.videoEnt {
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    width: 100%;
-    /*  object-fit is not supported on IE  */
-    object-fit: cover;
-    opacity: 0.5;
-}
-
-.jumbotron {
-    background-color: rgba(43, 41, 41, 0.521);
-    background-image: url("pes.jpg");
-    background-size: 100% 100%;
-    color: white;
-}
-
-#footerbg {
-    background-color: black;
-    width: 100%;
-    color: white;
-    bottom: 0;
-    position: absolute;
-}
-
-#logofooter {
-    padding-top: 10px;
-    padding-left: 20px;
-    float: right;
-    color: chartreuse;
-}
-
-#footercp {
-    padding-top: 10px;
-}
-
-.copypos {
-    color: chartreuse;
-    padding-top: 15px;
 }
 
 body {
