@@ -37,7 +37,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">#</th>
+            <th scope="col">No</th>
             <th scope="col">List Kompetisi</th>
             <th scope="col">Start Season Year</th>
             <th scope="col">End Season Year</th>
@@ -46,7 +46,6 @@
         <tbody id="list-negara"></tbody>
       </table>
     </div>
-    <!-- Modal -->
 
     <script>
       const API = "https://api.football-data.org/v2/competitions";
@@ -87,13 +86,8 @@
             }
             console.log(listCompetitionByCountry);
           });
-          // const tidur = data.currentSeason.currentMatchday;
-          // console.log(tidur);
-          // console.log(data.currentSeason.startDate);
-          console.log(dataCompetition);
 
-          // console.log(data.area.name);
-          // console.log(data.currentSeason.startDate);
+          console.log(dataCompetition);
 
           listCompetitionByCountry.forEach((country, i) => {
             console.log(country);
