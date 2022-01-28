@@ -102,9 +102,11 @@
           },
         })
         .then((response) => {
+          Swal.fire("Success", "Success Loading Player", "success");
           console.log(response.data);
         })
         .catch((error) => {
+          Swal.fire("Error", "Error Loading Teams", "error");
           console.error(error);
         });
 
