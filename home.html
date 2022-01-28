@@ -34,6 +34,13 @@
             />
           </svg>
         </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="listCompetition.html">List Kompetisi</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
     <!-- Navbar End-->
@@ -100,10 +107,7 @@
           console.log(response);
           Swal.fire("Success", "Welcome to Football Data API", "success");
         })
-        .catch((err) => {
-          console.log(err);
-          Swal.fire("Error", "Error Occured", "Error");
-        });
+        .catch((err) => console.log(err));
       const getListData = () => {
         axios
           .get(API, { headers: { "X-Auth-Token": `${token}` } })
@@ -145,6 +149,7 @@
           })
           .catch((err) => {
             console.log(err);
+            Swal.fire("Error", "Error Occured", "Error");
           });
       };
       getListData();
