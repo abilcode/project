@@ -33,6 +33,13 @@
     ></script>
   </head>
   <body>
+    <div class="container mt-5 text-center">
+      <input type="text" id="myInput" placeholder="Search..." />
+    </div>
+    <div
+      class="main container-fluid mt-5 ms-5 text-center row row-cols-3"
+      style="display: flex; justify-content: center"
+    ></div>
     <div class="container">
       <table class="table table-striped">
         <thead>
@@ -125,6 +132,16 @@
           });
 
           $("#list-negara").html(listHtml);
+          $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+              let value = $(this).val().toLowerCase();
+              $("#list-negara tr").filter(function () {
+                $(this).toggle(
+                  $(this).text().toLowerCase().indexOf(value) > -1
+                );
+              });
+            });
+          });
         } catch (error) {
           console.log(error);
         }
