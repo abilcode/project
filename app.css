@@ -19,3 +19,8 @@ header {
   background: url("https://st2.depositphotos.com/1035837/12148/i/950/depositphotos_121487036-stock-photo-green-football-field-background.jpg");
   background-size: cover;
 }
+
+#footerbg {
+  background-color: black;
+  color: chartreuse;
+}
